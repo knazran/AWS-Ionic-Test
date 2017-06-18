@@ -22,12 +22,12 @@ export class TasksPage {
               public user: User,
               public db: DynamoDB) {
 
-    this.refreshTasks();
+    this.refreshData(this.refresher);
   }
 
   refreshData(refresher) {
     this.refresher = refresher;
-    this.refreshTasks()
+    this.refreshTasks();
   }
 
   refreshTasks() {
@@ -66,18 +66,21 @@ export class TasksPage {
 
   addTask() {
     let id = this.generateId();
+    let self = this;
     let addModal = this.modalCtrl.create(TasksCreatePage, { 'id': id });
     addModal.onDidDismiss(item => {
       if (item) {
         item.userId = AWS.config.credentials.identityId;
         item.created = (new Date().getTime() / 1000);
+
         this.db.getDocumentClient().put({
           'TableName': this.taskTable,
           'Item': item,
           'ConditionExpression': 'attribute_not_exists(id)'
         }, function(err, data) {
           if (err) { console.log(err); }
-          this.refreshTasks();
+          console.log(this)
+          self.refreshTasks();
         });
       }
     })

@@ -24,6 +24,7 @@ export class MyApp {
     };
 
     platform.ready().then(() => {
+      //Check if user has been authenticated, go to LoginPage if not
       user.isAuthenticated().then(() => {
         console.log('you are authenticated!');
         this.rootPage = TabsPage;
@@ -35,4 +36,6 @@ export class MyApp {
       });
     });
   }
+
+
 }
