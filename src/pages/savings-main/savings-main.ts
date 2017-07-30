@@ -4,9 +4,8 @@ import { NavController, ModalController } from 'ionic-angular';
 import { Observable }      from "rxjs/Rx";
 import { Chart } from 'chart.js';
 
+import { SavingsDetailsPage } from '../savings-details/savings-details'
 import { TranscDataProvider } from '../../providers/providers';
-
-declare var AWS: any;
 
 @Component({
   selector: 'page-tasks',
@@ -50,6 +49,10 @@ export class SavingsMainPage {
     this.getTransactions().then(() =>{
       this.calculateStats();
     });
+  }
+
+  goToSavingDetails() {
+    this.navCtrl.push(SavingsDetailsPage, {transc: this.transc});
   }
 
   //Calculate the stats into weekly and all time stats

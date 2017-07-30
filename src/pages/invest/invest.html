@@ -7,12 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>invest</ion-title>
+    <ion-title>Invest</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+	<!-- Chart -->
+	<ion-card>
+	  <ion-card-header>
+	    <strong>Portfolio Summary</strong>
+	  </ion-card-header>
+	  <ion-card-content>
+	    <canvas #investing></canvas>
+	  </ion-card-content>
+	</ion-card>
+	<ion-card>
+	  <ion-card-header>
+	    <strong>Statistics</strong>
+	  </ion-card-header>
+	  <ion-card-content>
+	      <h2>Total Returns: RM 15.90</h2>
+	      <h2>Average Return Percentage: 3.5%</h2>
+	  </ion-card-content>
+	</ion-card>
 </ion-content>
