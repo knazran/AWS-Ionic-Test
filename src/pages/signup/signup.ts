@@ -11,6 +11,7 @@ export class UserDetails {
     username: string;
     email: string;
     password: string;
+    nric: string;
 }
 
 @Component({

@@ -70,6 +70,7 @@ export class User {
     let attributes = [];
 
     for (var x in attr) {
+      console.log(attr[x])
       attributes.push(this.cognito.makeAttribute(x, attr[x]));
     }
 

@@ -3,6 +3,7 @@ import { App } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { AboutPage } from '../about/about';
 import { AccountPage } from '../account/account';
+import { BankDetailsPage } from '../bank-details/bank-details';
 
 import { User } from '../../providers/providers';
 
@@ -13,6 +14,7 @@ export class SettingsPage {
 
   public aboutPage = AboutPage;
   public accountPage = AccountPage;
+  public cardDetailsPage = BankDetailsPage
 
   constructor(public user: User, public app: App) {
   }

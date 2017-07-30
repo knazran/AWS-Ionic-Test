@@ -4,13 +4,8 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     <ion-title>
-      Tasks 
+      Savings 
     </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="addTask()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -24,23 +19,42 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-grid>
-    <ion-list>
-    <ion-row>
-      <ion-col
-        col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3
-        *ngFor="let item of items; let idx = index;">
-        <ion-item-sliding>
-          <button ion-item>
-            <h2>{{item.category}}</h2>
-            <p>{{item.description}}</p>
-          </button>
-          <ion-item-options>
-            <button ion-button color="danger" (click)="deleteTask(item, idx)">DELETE</button>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-col>
-    </ion-row>
-    </ion-list>
+    <!-- Summary stats -->
+        <ion-card>
+        <ion-card-header>
+          <strong>Summary Stats</strong>
+        </ion-card-header>
+        <ion-card-content>
+          <h2>This Week : RM {{weekly_savings}}</h2>
+          <h2>All Time : RM {{all_time_savings}}</h2>
+        </ion-card-content>
+        </ion-card>
+    <!-- Chart -->
+    <ion-card>
+      <ion-card-header>
+        <strong>Savings This Week</strong>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #savingsCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <strong>Recent Savings</strong>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-row *ngFor="let item of transc | reverse; let idx = index;">
+            <button ion-item *ngIf="idx<4">
+              <h2>Datetime : {{item.datetime}}</h2>
+              <h2>Savings : RM{{item.transc_amnt}}</h2>
+              <p>Transaction Number : {{item.transc_num}}</p>
+            </button>
+          </ion-row>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
   </ion-grid>
 </ion-content>
 

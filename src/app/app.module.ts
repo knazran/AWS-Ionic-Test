@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
 
@@ -11,6 +12,9 @@ import { ConfirmPage } from '../pages/confirm/confirm';
 import { SettingsPage } from '../pages/settings/settings';
 import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
+import { BankDetailsPage } from '../pages/bank-details/bank-details';
+import { AddCardModalPage } from '../pages/add-card-modal/add-card-modal';
+import { InvestPage } from '../pages/invest/invest';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TasksPage } from '../pages/tasks/tasks';
 import { TasksCreatePage } from '../pages/tasks-create/tasks-create';
@@ -21,6 +25,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { User } from '../providers/user';
 import { Cognito } from '../providers/aws.cognito';
 import { DynamoDB } from '../providers/aws.dynamodb';
+import { TranscDataProvider } from '../providers/transc-data/transc-data';
+import {NgPipesModule} from 'ngx-pipes';
 
 
 @NgModule({
@@ -32,13 +38,18 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     SettingsPage,
     AboutPage,
     AccountPage,
+    BankDetailsPage,
+    AddCardModalPage,
+    InvestPage,
     TabsPage,
     TasksPage,
     TasksCreatePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule,
+    NgPipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,6 +60,9 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     SettingsPage,
     AboutPage,
     AccountPage,
+    BankDetailsPage,
+    AddCardModalPage,
+    InvestPage,
     TabsPage,
     TasksPage,
     TasksCreatePage
@@ -60,7 +74,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     Camera,
     User,
     Cognito,
-    DynamoDB
+    DynamoDB,
+    TranscDataProvider
   ]
 })
 export class AppModule {}
