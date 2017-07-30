@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
-import { TasksPage } from '../pages/tasks/tasks';
+import { SavingsMainPage } from '../pages/savings-main/savings-main';
 import { SettingsPage } from '../pages/settings/settings';
 
 import { User } from '../providers/user';
@@ -32,7 +32,7 @@ export class MyApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageInterface[] = [
-    { title: 'Tasks', name: 'TabsPage', component: TabsPage, tabComponent: TasksPage, index: 0, icon: 'calendar' },
+    { title: 'Tasks', name: 'TabsPage', component: TabsPage, tabComponent: SavingsMainPage, index: 0, icon: 'calendar' },
     { title: 'Settings', name: 'TabsPage', component: TabsPage, tabComponent: SettingsPage, index: 1, icon: 'contacts' }
   ];
 

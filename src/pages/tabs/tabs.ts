@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { SettingsPage } from '../settings/settings';
-import { TasksPage } from '../tasks/tasks';
+import { SavingsMainPage } from '../savings-main/savings-main';
 import { InvestPage } from '../invest/invest';
 
 @Component({
@@ -9,7 +9,7 @@ import { InvestPage } from '../invest/invest';
 })
 export class TabsPage {
 
-  tab1Root = TasksPage;
+  tab1Root = SavingsMainPage;
   tab2Root = InvestPage;
   tab3Root = SettingsPage;
 

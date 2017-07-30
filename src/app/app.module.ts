@@ -16,8 +16,7 @@ import { BankDetailsPage } from '../pages/bank-details/bank-details';
 import { AddCardModalPage } from '../pages/add-card-modal/add-card-modal';
 import { InvestPage } from '../pages/invest/invest';
 import { TabsPage } from '../pages/tabs/tabs';
-import { TasksPage } from '../pages/tasks/tasks';
-import { TasksCreatePage } from '../pages/tasks-create/tasks-create';
+import { SavingsMainPage } from '../pages/savings-main/savings-main';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -42,8 +41,7 @@ import {NgPipesModule} from 'ngx-pipes';
     AddCardModalPage,
     InvestPage,
     TabsPage,
-    TasksPage,
-    TasksCreatePage
+    SavingsMainPage
   ],
   imports: [
     BrowserModule,
@@ -64,8 +62,7 @@ import {NgPipesModule} from 'ngx-pipes';
     AddCardModalPage,
     InvestPage,
     TabsPage,
-    TasksPage,
-    TasksCreatePage
+    SavingsMainPage
   ],
   providers: [
     StatusBar,

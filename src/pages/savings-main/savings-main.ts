@@ -10,13 +10,12 @@ declare var AWS: any;
 
 @Component({
   selector: 'page-tasks',
-  templateUrl: 'tasks.html'
+  templateUrl: 'savings-main.html'
 })
-export class TasksPage {
+export class SavingsMainPage {
 
   @ViewChild('savingsCanvas') savingsCanvas;
   
-  public items: any;
   public refresher: any;
   public transc : any
 
@@ -25,7 +24,8 @@ export class TasksPage {
   weekly_savings : number = 0;
   all_time_savings : number = 0;
   highest_day_savings : number = 0;
-  //Dummy data because of absence of datetime
+
+  //Dummy structure because of absence of datetime
   weekly_savings_arr : Array<number> = [0, 0, 0, 0, 0, 0, 0] 
 
   // Dummy number for start of the week and end of the week 
@@ -36,12 +36,15 @@ export class TasksPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public transData: TranscDataProvider) {
+    // Initialize the page
+    // Improvement: Move to ionViewLoaded
     this.getTransactions().then(() =>{
       this.calculateStats();
       this.drawSavingsGraph(this.weekly_savings_arr);
     });
   }
 
+  // Pull to refresh logic
   refreshData(refresher) {
     this.refresher = refresher;
     this.getTransactions().then(() =>{
@@ -49,6 +52,51 @@ export class TasksPage {
     });
   }
 
+  //Calculate the stats into weekly and all time stats
+  //Datetime absences force us to abritarary choose stuff
+  calculateStats(){
+    for (let trans of this.transc) {
+      let amount = Number(trans.transc_amnt);
+      console.log(amount)
+      if (trans.datetime >= this.start_of_the_week && trans.datetime <= this.end_of_the_week){
+        this.weekly_savings += amount;
+        // Sigh, we wish we have better datasets
+        // Improvement: should make our own datetime and append to data set but oh well
+        this.weekly_savings_arr[trans.datetime % 7] = amount;
+      }
+      this.all_time_savings += amount;
+    }
+    this.all_time_savings = Number(this.all_time_savings.toPrecision(2))
+    this.weekly_savings = Number(this.weekly_savings.toPrecision(2))
+    this.highest_day_savings = Math.max.apply(null, this.weekly_savings_arr);
+    console.log(this.weekly_savings_arr)
+  }
+
+  // Get transaction data from our local server
+  getTransactions() : Promise<any>{
+    let acc_num = "5762180859277883" //Dummy data for now
+    return new Promise((resolve, reject) => {
+      this.transData.GetTransaction(acc_num).subscribe(
+         data => {
+           // TODO Process data
+           this.transc = data[acc_num];
+           console.log(this.transc)
+           if (this.refresher) {
+             this.refresher.complete();
+           }
+           resolve();
+           return true;
+         },
+         error => {
+           console.error("Error: Can't contact server");
+           return Observable.throw(error);
+         }
+      );
+      console.log("Done")
+    });
+  }
+
+  // Giant scary code to draw our savings bar chart
   drawSavingsGraph(data: Array<number>){
     this.savingsChart = new Chart(this.savingsCanvas.nativeElement, {
         type: 'bar',
@@ -94,12 +142,14 @@ export class TasksPage {
             hover: {
                 animationDuration: 0
             },
+
+            //To put up the ringgit numbers on the bars
             animation: {
                 duration: 1,
                 onComplete: function () {
                     let chartInstance = this.chart,
                     ctx = chartInstance.ctx;
-                    ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+                    // ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'bottom';
 
@@ -113,45 +163,6 @@ export class TasksPage {
                 }
             }
           }
-    });
-  }
-
-  calculateStats(){
-    for (let trans of this.transc) {
-      let amount = Number(trans.transc_amnt);
-      console.log(amount)
-      if (trans.datetime >= this.start_of_the_week && trans.datetime <= this.end_of_the_week){
-        this.weekly_savings += amount;
-        this.weekly_savings_arr[trans.datetime % 7] = amount;
-      }
-      this.all_time_savings += amount;
-    }
-    this.all_time_savings = Number(this.all_time_savings.toPrecision(2))
-    this.weekly_savings = Number(this.weekly_savings.toPrecision(2))
-    this.highest_day_savings = Math.max.apply(null, this.weekly_savings_arr);
-    console.log(this.weekly_savings_arr)
-  }
-
-  getTransactions() : Promise<any>{
-    let acc_num = "5762180859277883" //Dummy data for now
-    return new Promise((resolve, reject) => {
-      this.transData.GetTransaction(acc_num).subscribe(
-         data => {
-           // TODO Process data
-           this.transc = data[acc_num];
-           console.log(this.transc)
-           if (this.refresher) {
-             this.refresher.complete();
-           }
-           resolve();
-           return true;
-         },
-         error => {
-           console.error("Error: Can't contact server");
-           return Observable.throw(error);
-         }
-      );
-      console.log("Done")
     });
   }
 }
