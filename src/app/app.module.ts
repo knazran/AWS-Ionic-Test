@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 
 import { Camera } from '@ionic-native/camera';
+import { Stripe } from '@ionic-native/stripe';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -14,6 +15,7 @@ import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
 import { BankDetailsPage } from '../pages/bank-details/bank-details';
 import { AddCardModalPage } from '../pages/add-card-modal/add-card-modal';
+import { CardSettingsPage } from '../pages/card-settings/card-settings'
 import { InvestPage } from '../pages/invest/invest';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SavingsMainPage } from '../pages/savings-main/savings-main';
@@ -43,7 +45,8 @@ import {NgPipesModule} from 'ngx-pipes';
     InvestPage,
     TabsPage,
     SavingsMainPage,
-    SavingsDetailsPage
+    SavingsDetailsPage,
+    CardSettingsPage
   ],
   imports: [
     BrowserModule,
@@ -65,13 +68,15 @@ import {NgPipesModule} from 'ngx-pipes';
     InvestPage,
     TabsPage,
     SavingsMainPage,
-    SavingsDetailsPage
+    SavingsDetailsPage,
+    CardSettingsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Camera,
+    Stripe,
     User,
     Cognito,
     DynamoDB,

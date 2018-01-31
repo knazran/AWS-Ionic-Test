@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Chart } from 'chart.js';
 import { TranscDataProvider } from '../../providers/providers';
@@ -9,13 +9,13 @@ import { TranscDataProvider } from '../../providers/providers';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
 @Component({
   selector: 'page-invest',
   templateUrl: 'invest.html',
 })
 export class InvestPage {
 
+  // O sweet child of mine
 	@ViewChild('investing') investing;
 
 	investChart: any;
@@ -37,11 +37,13 @@ export class InvestPage {
   }
 
 
-  // Giant scary code to draw our savings bar chart
+  // Giant scary code to draw charts. 
+  // Charts are indeed scary
   drawInvestGraph(data: any){
   	this.investChart = new Chart(this.investing.nativeElement, {
         type: 'bar',
         data: {
+            // DUMMY DATES. SERIOUSLY NEED BETTER DATASET
             labels: ["1/2/17", "1/3/17", "1/4/17", "1/5/17", "1/6/17"],
             datasets: [
               {

@@ -1,0 +1,67 @@
+<!--
+  Generated template for the CardSettingsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Savings Settings</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card>
+	    <ion-card-header>
+	      <strong>Spending Limit</strong>
+	    </ion-card-header>
+	    <ion-card-content>
+	    	<p>We won't round up if you are spending above your limit</p>
+	      <!-- <form [formGroup]="spendinglimit"> -->
+	          <ion-segment>
+	            <ion-segment-button value="100">
+	              RM 100
+	            </ion-segment-button>
+	            <ion-segment-button value="300">
+	              RM 300
+	            </ion-segment-button>
+	            <ion-segment-button value="500">
+	              RM 500
+	            </ion-segment-button>
+	            <ion-segment-button value="1000">
+	              RM 1000
+	            </ion-segment-button>
+	            <ion-segment-button value="unlimited">
+	              Unlimited
+	            </ion-segment-button>
+	          </ion-segment>
+	        <!-- </form> -->
+	    </ion-card-content>
+    </ion-card>
+ 	<ion-card>
+ 	    <ion-card-header>
+ 	      <strong>Saving Strategy</strong>
+ 	    </ion-card-header>
+ 	    <ion-card-content>
+ 	    	<p>Choose how much you would like to save for every transaction</p>
+ 	    	<p>BOLD: Round up to the nearest tens. Eg: RM 7.10 will be round up to RM 10.00</p>
+ 	    	<p>CONSERVATIVE: Round up to the nearest ones. Eg: RM 7.10 will be round up to RM 8.00</p>
+ 	      <!-- <form [formGroup]="spendinglimit"> -->
+ 	          <ion-segment >
+ 	            <ion-segment-button value="bold">
+ 	              Bold
+ 	            </ion-segment-button>
+ 	            <ion-segment-button value="conservation">
+ 	              Conservative
+ 	            </ion-segment-button>
+ 	          </ion-segment>
+ 	        <!-- </form> -->
+ 	    </ion-card-content>
+     </ion-card>
+     <div padding>
+       <button block icon-start ion-button color="primary" (click)="done()">Done</button>
+     </div>
+</ion-content>

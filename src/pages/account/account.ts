@@ -8,6 +8,10 @@ import { DynamoDB, User } from '../../providers/providers';
 
 declare var AWS: any;
 
+/*
+OUT OF THE BOX FROM IONIC-AWS starter code
+*/
+
 @Component({
   selector: 'page-account',
   templateUrl: 'account.html'

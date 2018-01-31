@@ -7,6 +7,11 @@ import { Chart } from 'chart.js';
 import { SavingsDetailsPage } from '../savings-details/savings-details'
 import { TranscDataProvider } from '../../providers/providers';
 
+/*
+Controller for the Savings page. This is the first thing user
+sees when they login
+*/
+
 @Component({
   selector: 'page-tasks',
   templateUrl: 'savings-main.html'
@@ -15,16 +20,17 @@ export class SavingsMainPage {
 
   @ViewChild('savingsCanvas') savingsCanvas;
   
-  public refresher: any;
-  public transc : any
+  public refresher: any; //refresher object for pull to refresh
+  public transc : any //transaction object. IMPROVEMENT: Should enforce strong typed object
 
-  savingsChart: any;
+  savingsChart: any; //Chart object
 
+  //Page specific data
   weekly_savings : number = 0;
   all_time_savings : number = 0;
   highest_day_savings : number = 0;
 
-  //Dummy structure because of absence of datetime
+  // Dummy structure because of absence of datetime
   weekly_savings_arr : Array<number> = [0, 0, 0, 0, 0, 0, 0] 
 
   // Dummy number for start of the week and end of the week 
@@ -47,16 +53,19 @@ export class SavingsMainPage {
   refreshData(refresher) {
     this.refresher = refresher;
     this.getTransactions().then(() =>{
+      // Should destroy the graph first but its static so its cool
       this.calculateStats();
     });
   }
 
+  // Go to Saving Details page. Pass the obtained transaction data to save a GET request
   goToSavingDetails() {
+    // Why bother saving money when you can't save yourself? *thinking*
     this.navCtrl.push(SavingsDetailsPage, {transc: this.transc});
   }
 
   //Calculate the stats into weekly and all time stats
-  //Datetime absences force us to abritarary choose stuff
+  //Datetime absences force us to pool up 
   calculateStats(){
     for (let trans of this.transc) {
       let amount = Number(trans.transc_amnt);
@@ -64,11 +73,12 @@ export class SavingsMainPage {
       if (trans.datetime >= this.start_of_the_week && trans.datetime <= this.end_of_the_week){
         this.weekly_savings += amount;
         // Sigh, we wish we have better datasets
-        // Improvement: should make our own datetime and append to data set but oh well
+        // IMPROVEMENT: should make our own datetime and append to data set but oh well
         this.weekly_savings_arr[trans.datetime % 7] = amount;
       }
       this.all_time_savings += amount;
     }
+    // Some clean up and formatting
     this.all_time_savings = Number(this.all_time_savings.toPrecision(2))
     this.weekly_savings = Number(this.weekly_savings.toPrecision(2))
     this.highest_day_savings = Math.max.apply(null, this.weekly_savings_arr);
@@ -77,13 +87,16 @@ export class SavingsMainPage {
 
   // Get transaction data from our local server
   getTransactions() : Promise<any>{
-    let acc_num = "5762180859277883" //Dummy data for now
+    let acc_num = "2631004218431511" //Dummy data for now
     return new Promise((resolve, reject) => {
+      // The Redbull ladies are super cute
       this.transData.GetTransaction(acc_num).subscribe(
          data => {
            // TODO Process data
            this.transc = data[acc_num];
            console.log(this.transc)
+
+           //Tell refresher objects that we are done
            if (this.refresher) {
              this.refresher.complete();
            }

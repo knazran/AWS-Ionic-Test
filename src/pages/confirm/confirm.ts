@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import { LoginPage } from '../login/login';
+// import { LoginPage } from '../login/login';
+import { AddCardModalPage } from '../add-card-modal/add-card-modal';
 import { User } from '../../providers/user';
 
 @Component({
@@ -20,7 +21,7 @@ export class ConfirmPage {
 
   confirm() {
     this.user.confirmRegistration(this.username, this.code).then(() => {
-      this.navCtrl.push(LoginPage);
+      this.navCtrl.push(AddCardModalPage);
     });
   }
 
